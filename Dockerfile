@@ -1,22 +1,18 @@
-FROM node:lts-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Install multiple Node.js versions using n
-RUN apk add --no-cache curl \
-    && curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
-    && bash n lts \
-    && bash n latest \
-    && rm n
+# Copy package files
+COPY package*.json ./
 
-COPY app/package*.json ./
-
+# Install dependencies
 RUN npm install
 
-COPY app/ .
+# Copy source code
+COPY . .
 
-RUN npm run build
-
+# Expose port
 EXPOSE 3000
 
+# Start application
 CMD ["npm", "start"]
