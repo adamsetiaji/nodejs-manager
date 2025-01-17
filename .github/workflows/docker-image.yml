@@ -13,15 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Debug - List files in the working directory
-      - name: List files in the working directory
-        run: ls -la
-
-      # Step 3: Login to GitHub Container Registry
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -29,11 +23,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 4: Build and Push Docker Image
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
-          tags: ghcr.io/adamsetiaji/nodejs-manager:latest
           push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
