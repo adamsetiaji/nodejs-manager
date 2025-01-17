@@ -1,0 +1,16 @@
+nodejs-manager/
+├── Dockerfile
+├── docker-compose.yml
+├── README.md
+└── app/
+    ├── package.json
+    ├── server/
+    │   └── index.js
+    ├── public/
+    │   └── index.html
+    ├── src/
+    │   ├── index.js
+    │   ├── index.css
+    │   └── components/
+    │       └── NodejsManager.js
+    └── tailwind.config.js
